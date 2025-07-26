@@ -1,4 +1,4 @@
-const words = ["DATA SCIENTIST ","DATA ANALYST ","DATA ENGINEER ","SOFTWARE ENGINEER ",  "FULL STACK DEVELOPER "];
+const words = ["SOFTWARE ENGINEER ",  "FULL STACK DEVELOPER "];
 let i = 0;
 let timer;
 
