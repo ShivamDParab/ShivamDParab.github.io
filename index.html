@@ -1,430 +1,1139 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Shivam Parab. Full Stack Developer. Software Engineer. Data Scientist. Data Analyst. Mumbai.">
-    <meta name="author" content="Shivam Parab">
-    <title>Shivam Parab</title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-    <!-- Bootstrap + Meyawo main styles -->
-    <link rel="stylesheet" href="assets/css/meyawo.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shivam Parab — Full Stack Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #181818;
+      --border: #1f1f1f;
+      --border2: #2a2a2a;
+      --text: #e8e8e0;
+      --text-muted: #666660;
+      --text-dim: #444440;
+      --accent: #c8f065;
+      --accent2: #7dd3fc;
+      --accent3: #f9a8d4;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 20px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-number {
+      position: absolute;
+      top: 50%;
+      right: -2%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(220px, 30vw, 420px);
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border2);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      letter-spacing: -10px;
+      animation: fadeInRight 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateY(-50%) translateX(60px); }
+      to { opacity: 1; transform: translateY(-50%) translateX(0); }
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s 0.2s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-tag::before {
+      content: '//';
+      margin-right: 8px;
+      opacity: 0.5;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 9vw, 110px);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -3px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.35s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-name .line2 {
+      display: block;
+      color: var(--text-muted);
+    }
+
+    .hero-desc {
+      max-width: 520px;
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 44px;
+      animation: fadeUp 0.8s 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-desc strong { color: var(--text); font-weight: 500; }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.65s ease forwards;
+      opacity: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 14px 28px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,240,101,0.25); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border2);
+      color: var(--text-muted);
+      padding: 14px 28px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
+
+    .hero-stats {
+      position: absolute;
+      right: 48px;
+      bottom: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeUp 0.8s 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .stat {
+      text-align: right;
+    }
+
+    .stat-number {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrapper {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 14px 0;
+      background: var(--surface);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 30s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 32px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+
+    .section-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      border-top: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 500; }
+
+    .about-text p:first-child {
+      font-size: 19px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .open-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      padding: 10px 18px;
+      border: 1px solid rgba(200,240,101,0.3);
+      background: rgba(200,240,101,0.06);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .open-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .about-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .info-block {
+      padding: 24px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .info-block-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .info-block-value {
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .skill-category {
+      background: var(--surface);
+      padding: 36px;
+      transition: background 0.2s;
+    }
+
+    .skill-category:hover { background: var(--surface2); }
+
+    .skill-cat-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-cat-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .skill-cat-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border: 1px solid var(--border2);
+      letter-spacing: 0.03em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── EXPERIENCE ── */
+    #experience {
+      border-top: 1px solid var(--border);
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:first-of-type { border-top: 1px solid var(--border); }
+
+    .exp-meta {
+      padding-top: 4px;
+    }
+
+    .exp-period {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .exp-company {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .exp-location {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .exp-role {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exp-bullets li {
+      font-size: 15px;
+      color: var(--text-muted);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .exp-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+      top: 3px;
+    }
+
+    .exp-bullets li strong { color: var(--text); font-weight: 500; }
+
+    .exp-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .exp-stack-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent2);
+      padding: 3px 10px;
+      border: 1px solid rgba(125,211,252,0.2);
+      background: rgba(125,211,252,0.05);
+    }
+
+    /* ── PROJECTS ── */
+    #projects {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .project-card {
+      background: var(--surface);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .project-card:hover { background: var(--surface2); }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .project-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .metric::before {
+      content: '▸';
+      font-size: 10px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border: 1px solid var(--border2);
+      color: var(--text-dim);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 800;
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .contact-headline span { color: var(--accent); }
+
+    .contact-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 44px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 12px 24px;
+      border: 1px solid var(--border2);
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .contact-link.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .contact-link.primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 72px 24px; }
+      .hero { padding: 0 24px 56px; }
+      .hero-stats { display: none; }
+      .hero-bg-number { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 16px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
 </head>
+<body>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">SP<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <a href="mailto:shivamparab21500@gmail.com" class="nav-cta">hire_me()</a>
+  </nav>
 
-    <!-- Page Navbar -->
-    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
-        <div class="container">
-            <a class="logo" href="#">Shivam Parab</a>
-           
-            <ul class="nav">
-                <li class="item">
-                    <a class="link" href="#home">Home</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#aboutsection">About</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#skills">Skills</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#projects">Projects</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#timeline">Journey</a>
-                </li>
-                <li class="item">
-                    <a class="link" href="#contact">Contact</a>
-                </li>
-            </ul>
-            <a href="javascript:void(0)" id="nav-toggle" class="hamburger hamburger--elastic">
-                <div class="hamburger-box">
-                    <div class="hamburger-inner"></div>
-                </div>
-            </a>
-            
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-number">3+</div>
+    <span class="hero-tag">Full Stack Engineer · Mumbai, India · Open to remote</span>
+    <h1 class="hero-name">
+      Shivam<br>
+      <span class="line2">Parab.</span>
+    </h1>
+    <p class="hero-desc">
+      I build <strong>scalable, high-performance web applications</strong> with .NET Core, React, and Azure.
+      Specializing in architecture modernization, cloud deployments, and engineering solutions that ship fast and hold up at scale.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="#contact" class="btn-secondary">Get in touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">3+</span>
+        <span class="stat-label">years experience</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">40%</span>
+        <span class="stat-label">avg perf gains</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">50%</span>
+        <span class="stat-label">faster releases</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <!-- repeated twice for seamless loop -->
+      <span class="marquee-item"><span class="marquee-dot"></span>.NET Core</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>React</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>TypeScript</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Azure</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Docker</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>SQL Server</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Entity Framework</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>TimescaleDB</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CI/CD</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>PostgreSQL</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>C#</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>RESTful APIs</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Azure DevOps</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Performance Optimization</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>.NET Core</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>React</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>TypeScript</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Azure</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Docker</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>SQL Server</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Entity Framework</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>TimescaleDB</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>CI/CD</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>PostgreSQL</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>C#</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>RESTful APIs</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Azure DevOps</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Performance Optimization</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header reveal">
+      <span class="section-number">01</span>
+      <h2 class="section-title">About</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a Full Stack Software Engineer with 3+ years of experience building and scaling production web applications. I work across the entire stack — from architecting .NET Core APIs to building performant React frontends — with a bias for clean, maintainable code that solves real problems.</p>
+        <p>At <strong>WonderBiz Technologies</strong>, I've led end-to-end initiatives: modernizing legacy desktop applications to cloud-ready architectures, containerizing enterprise deployments with Docker, and optimizing systems to handle thousands of daily active users without breaking a sweat.</p>
+        <p>I care about <strong>performance, reliability, and developer experience</strong>. Whether it's cutting query execution times, shipping CI/CD pipelines that give teams confidence to deploy, or designing cloud-agnostic solutions that don't lock clients in — I focus on building things that last.</p>
+        <div class="open-badge">Open to Full Stack .NET / React roles — Mumbai & Remote India</div>
+      </div>
+      <div class="about-sidebar reveal">
+        <div class="info-block">
+          <div class="info-block-label">Current role</div>
+          <div class="info-block-value">Software Engineer @ WonderBiz Technologies</div>
         </div>
-    </nav><!-- End of Page Navbar -->
-
-    <!-- page header -->
-    <header id="home" class="header">
-        <div class="overlay"></div>
-        <div class="header-content container">
-            <h1 class="header-title">
-                <span class="up">HI!</span>
-                <span class="down">I am Shivam Parab</span>
-            </h1>
-            <div class="flex" style="display: flex;">
-                <p class="header-subtitle" id="word"></p><p class="header-subtitle blink">|</p>
-            </div>
-
-            <a href="https://www.linkedin.com/in/shivam-parab/" target="_blank"><button class="btn btn-primary">Let's Connect!!</button></a>
+        <div class="info-block">
+          <div class="info-block-label">Location</div>
+          <div class="info-block-value">Mumbai, India · Available for remote</div>
         </div>
-    </header><!-- end of page header -->
-
-    <!-- about section -->
-    <section class="section pt-0" id="aboutsection">
-        <!-- container -->
-        <div class="container text-center">
-            <!-- about wrapper -->
-            <div class="about">
-                <div class="about-img-holder">
-                    <img 
-                    src="assets/imgs/shivam_parab.webp"
-                    class="about-img"
-                    alt="profile_pic.jpg"
-                    loading="lazy"
-                    >
-                </div>
-                <div class="about-caption">
-                    <p class="section-subtitle" >Who Am I ?</p>
-                    <h2 class="section-title mb-3">About Me</h2>
-                    <p>
-                        Hi! I'm Shivam Parab—a passionate Full-Stack Developer who thrives on taking web applications to the next level! </br></br>I love working on high-impact projects and nothing excites me more than modernizing complex systems to make them faster, smarter, and accessible to everyone.</br> One of my proudest achievements was spearheading a team initiative to transform a desktop-first application into a seamlessly mobile-responsive solution, expanding its reach and usability across all devices.</br>
-                    </br>Driven by innovation, I've implemented advanced design patterns to boost front-end performance by 30% and deliver a smoother, more engaging user experience. On the backend, I engineered game-changing upgrades by optimizing algorithms and database queries, solving critical bottlenecks and slashing page load times by 40%. I bring energy, expertise, and a results-oriented approach to every project, always looking for new ways to deliver outstanding value!
-                    </p>
-                    <a download target="_blank" href="assets/Shivam_Parab_Software_Engineer_3_YOE.pdf"><button class="btn-rounded btn btn-outline-primary mt-4">Download CV</button></a>
-                </div>
-            </div><!-- end of about wrapper -->
-        </div><!-- end of container -->
-    </section> <!-- end of about section -->
-
-    <!-- service section -->
-    <section class="section" id="skills">
-        <div class="container text-center">
-            <p class="section-subtitle">What I Do ?</p>
-            <h6 class="section-title mb-6">Skills</h6>
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/analytics.svg"
-                            loading="lazy"
-                                alt="analytics icon"
-                                class="icon">
-                            <h6 class="title">Data Analytics</h6>
-                            <p class="subtitle">Tableau, Data Analysis, Data
-                                Visualization, Data Cleaning, Data Augmentation.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/responsive.svg"
-                                alt="responsive website icon"
-                                loading="lazy"
-                                class="icon">
-                            <h6 class="title">Full Stack Development</h6>
-                            <p class="subtitle">React, TypeScript, Dotnet Core Web API, SQL Server, Azure DevOps.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/cloud-computing.svg"
-                            loading="lazy"
-                                alt="cloud computing icon"
-                                class="icon">
-                            <h6 class="title">Cloud Computing</h6>
-                            <p class="subtitle">Azure DevOps, Google Cloud Platform(GCP).</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="service-card">
-                        <div class="body">
-                            <img src="assets/imgs/machine-learning.svg"
-                                alt="machine learning icon"
-                                loading="lazy"
-                                class="icon">
-                            <h6 class="title">Machine Learning</h6>
-                            <p class="subtitle">Numpy, Pandas, Scikit-Learn,
-                                Matplotlib, NLP, Sentiment Analysis,
-                                Tensorflow, Keras, Computer Vision, OpenCV.</p>
-                        </div>
-                    </div>
-                </div>
-                
-            </div><!-- end of row -->
+        <div class="info-block">
+          <div class="info-block-label">Education</div>
+          <div class="info-block-value">B.E. Computer Engineering · Mumbai University · CGPA 8.71/10</div>
         </div>
-    </section><!-- end of service section -->
-
-    <!-- portfolio section -->
-    <section class="section" id="projects">
-        <div class="container text-center">
-            <p class="section-subtitle">What I Did ?</p>
-            <h6 class="section-title mb-6">Projects</h6>
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="https://github.com/letus21500/Palm-Vein-Recognition" target="_blank" class="portfolio-card">
-                        <img src="assets/imgs/palm _vein.jpg" class="portfolio-card-img" loading="lazy"
-                            alt="project 1">
-                        <span class="portfolio-card-overlay">
-                            <span class="portfolio-card-caption">
-                                <h4>Palm Vein Recognition Using Computer Vision</h5>
-                                    <p class="font-weight-normal"><b>Domain:</b> Biometrics, Computer Vision, Deep Learning.</p>
-                            </span>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="https://github.com/letus21500/Amazon-Electronic-Reviews" target="_blank" class="portfolio-card">
-                        <img class="portfolio-card-img" src="assets/imgs/reviewfilter.gif" class="img-responsive rounded" loading="lazy"
-                            alt="project 2">
-                        <span class="portfolio-card-overlay">
-                            <span class="portfolio-card-caption">
-                                <h4>Review/Comment Filtering Using NLP</h5>
-                                    <p class="font-weight-normal"><b>Domain:</b> Natural Language Processing, Sentiment Analysis, Machine Learning.</p>
-                            </span>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="https://public.tableau.com/app/profile/shivam.parab7177/viz/2011CensusIndia/Dashboard3" target="_blank" class="portfolio-card">
-                        <img class="portfolio-card-img" src="assets/imgs/Census2011.png" class="img-responsive rounded" loading="lazy"
-                            alt="project 3">
-                        <span class="portfolio-card-overlay">
-                            <span class="portfolio-card-caption">
-                                <h4>Visual Analysis of 2011 Census of India</h5>
-                                    <p class="font-weight-normal"><b>Domain:</b> Data Analysis, Data Visualization.</p>
-                            </span>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-md-4"></div>
-
-            </div><!-- end of row -->
-        </div><!-- end of container -->
-    </section> <!-- end of portfolio section -->
-
-
-    <section class="section" id="timeline">
-        <div class="container text-center">
-        <p class="section-subtitle">Where I Worked ?</p>
-            <h6 class="section-title mb-6">My Journey</h6>
-        <ul class="timeline">
-            <!-- Item 1 -->
-            <li>
-              <div class="direction-r">
-                <div class="flag-wrapper">
-                  <span class="hexa"></span>
-                  <span class="flag" style="display: flex;">Software Engineer, <br> Wonderbiz Technologies Pvt. Ltd.</span>
-                  <span class="time-wrapper"><span class="time">Sept 2022 - Present</span></span>
-                </div>
-                <div class="desc">
-                    <ul>
-                        <li class="timeline-list-item">
-                            Implemented innovative design patterns and coding practices to modernize the front-end architecture, boosting performance metrics by 30% and improving overall user experience.
-                        </li>
-                        <li class="timeline-list-item">
-                            Revamped backend infrastructure by introducing efficient algorithms and optimizing database queries, resolving critical project bottlenecks and reducing page load times by 40%.
-                        </li>
-                        <li class="timeline-list-item">
-                            Spearheaded a successful team initiative to transform a desktop-first web application into a fully mobile-responsive platform, ensuring seamless functionality and expanding accessibility across devices.
-                        </li>
-                    </ul>
-                </div>
-              </div>
-            </li>
-          
-            <!-- Item 2 -->
-            <li>
-              <div class="direction-l">
-                <div class="flag-wrapper">
-                  <span class="hexa"></span>
-                  <span class="flag" style="display: flex; ">Junior Machine Learning Engineer, <br> Omdena</span>
-                  <span class="time-wrapper"><span class="time">May 2022 - Aug 2022</span></span>
-                </div>
-                <div class="desc">
-                    <ul>
-                        <li class="timeline-list-item">
-                            Worked and Collaborated with 20+ other Citizen Data Scientists on a building sustainability benchmarking system using machine learning, AI and other techniques.
-                        </li>
-                        <li class="timeline-list-item">
-                            Worked in the Data Modelling team to create an ML Model for KPI Matching and NER recognition.
-                        </li>
-                        <li class="timeline-list-item">
-                            Used Named Entity Recognition to extract time and quantity-based values.
-                        </li>
-                    </ul>
-                </div>
-              </div>
-            </li>
-          
-            <!-- Item 3 -->
-            <li>
-              <div class="direction-r">
-                <div class="flag-wrapper">
-                  <span class="hexa"></span>
-                  <span class="flag" style="display: flex; ">Data Scientist, <br> Suven Consultants and Technology Pvt. Ltd.</span>
-                  <span class="time-wrapper"><span class="time">Nov 2021 - Jan 2022</span></span>
-                </div>
-                <div class="desc">
-                    <ul>
-                        <li class="timeline-list-item">
-                            Discussed with stakeholders and understood the business requirements.
-                        </li>
-                        <li class="timeline-list-item">
-                            Developed an end to end data pipeline model for solving the long-tailed problem in Recommendation Systems using Natural Language Processing.
-                        </li>
-                        <li class="timeline-list-item">
-                            Designed a prototype model to solve business requirements using Sentimental Analysis and Content-based Recommendation.
-                        </li>
-                        <li class="timeline-list-item">
-                            Worked in a team of two and delivered the results and insights to stakeholders.
-                        </li>
-                    </ul>
-                </div>
-              </div>
-            </li>
-
-            <!-- Item 2 -->
-            <li>
-                <div class="direction-l">
-                  <div class="flag-wrapper">
-                    <span class="hexa"></span>
-                    <span class="flag" style="display: flex; ">Data Science Intern, <br> Agarwal Packers and Movers Ltd.</span>
-                    <span class="time-wrapper"><span class="time">Sept 2021 - Sept 2021</span></span>
-                  </div>
-                  <div class="desc">
-                    <ul>
-                        <li class="timeline-list-item">
-                            Developed an end to end data pipeline model for data cleaning and ETL using Python and Google Sheets.
-                        </li>
-                        <li class="timeline-list-item">
-                            Designed a prototype model for live tracking of cargo using Python and Folium.
-                        </li>
-                        <li class="timeline-list-item">
-                            Delivered the results and insights with the use of Streamlit and Folium.
-                        </li>
-                        <li class="timeline-list-item">
-                            Assisted in streamlining the ETL process using Python and Google Cloud.
-                        </li>
-                    </ul>
-                </div>
-                </div>
-              </li>
-            <!--item 4-->
-            <li>
-              <div class="direction-r">
-                <div class="flag-wrapper">
-                  <span class="hexa"></span>
-                  <span class="flag" style="display: flex; ">Citizen Data Scientist, <br> Omdena</span>
-                  <span class="time-wrapper"><span class="time">Aug 2021 - Sep 2021</span></span>
-                </div>
-                <div class="desc">
-                    <ul>
-                        <li class="timeline-list-item">
-                            Worked and Collaborated with 90+ other Citizen Data Scientists on a predictive algorithm to save water in Egypt, using machine learning, AI and other techniques in an 8-week long project.
-                        </li>
-                        <li class="timeline-list-item">
-                            Worked mainly in the Knowledge gathering and Data Analysis part.
-                        </li>
-                        <li class="timeline-list-item">
-                            Analyzed the climate-related datasets and visualized the same with Tableau..
-                        </li>
-                    </ul>
-                </div>
-              </div>
-            </li>
-            <!-- Item 2 -->
-            <li>
-                <div class="direction-l">
-                  <div class="flag-wrapper">
-                    <span class="hexa"></span>
-                    <span class="flag" style="display: flex; ">BE - Computer Engineering, <br> Mumbai University.</span>
-                    <span class="time-wrapper"><span class="time">2018 - 2022</span></span>
-                  </div>
-                  <div class="desc">
-                    <ul>
-                        <li class="timeline-list-item">
-                            CGPI: 8.71/10
-                        </li>
-                    </ul>
-                </div>
-                </div>
-              </li>
-          </ul>
+        <div class="info-block">
+          <div class="info-block-label">Contact</div>
+          <div class="info-block-value">shivamparab21500@gmail.com</div>
         </div>
-    </section>
+        <div class="info-block">
+          <div class="info-block-label">Research</div>
+          <div class="info-block-value">Published in IRJET — Biometric authentication using Convolutional Auto-encoders</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- section -->
-    <section class="section-sm bg-primary">
-        <!-- container -->
-        <div class="container text-center text-sm-left">
-            <!-- row -->
-            <div class="row align-items-center">
-                <div class="col-sm offset-md-1 mb-4 mb-md-0">
-                    <h6 class="title text-light">Want to work with me?</h6>
-                    <p class="m-0 text-light">Always feel Free to Contact & Hire me</p>
-                </div>
-                <div class="col-sm offset-sm-2 offset-md-3">
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=shivamparab1500@gmail.com" target="_blank"><button class="btn btn-lg my-font btn-light rounded">Hire Me</button></a>
-                </div>
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </section> <!-- end of section -->
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">backend</div>
+        <div class="skill-cat-title">Server & APIs</div>
+        <div class="skill-tags">
+          <span class="skill-tag">.NET Core</span>
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">ASP.NET Core</span>
+          <span class="skill-tag">Web API</span>
+          <span class="skill-tag">Entity Framework</span>
+          <span class="skill-tag">RESTful APIs</span>
+          <span class="skill-tag">XUnit</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">frontend</div>
+        <div class="skill-cat-title">UI & Client</div>
+        <div class="skill-tags">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">AG-Grid</span>
+          <span class="skill-tag">Jest</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">Responsive Design</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">data</div>
+        <div class="skill-cat-title">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL Server</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">TimescaleDB</span>
+          <span class="skill-tag">Query Optimization</span>
+          <span class="skill-tag">Schema Design</span>
+          <span class="skill-tag">Indexing</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">cloud & infra</div>
+        <div class="skill-cat-title">DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Azure</span>
+          <span class="skill-tag">Azure DevOps</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Docker Compose</span>
+          <span class="skill-tag">CI/CD Pipelines</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">languages</div>
+        <div class="skill-cat-title">Code</div>
+        <div class="skill-tags">
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-label">practices</div>
+        <div class="skill-cat-title">Engineering</div>
+        <div class="skill-tags">
+          <span class="skill-tag">System Architecture</span>
+          <span class="skill-tag">Perf Optimization</span>
+          <span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">Code Review</span>
+          <span class="skill-tag">API Design</span>
+          <span class="skill-tag">Containerization</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- contact section -->
-    <section class="section" id="contact">
-        <div class="container text-center">
-            <p class="section-subtitle">How can you communicate?</p>
-            <h6 class="section-title mb-5">Contact Me</h6>
-            <!-- contact form -->
-            <!-- <form action="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=shivamparab1500@gmail.com" target="_blank" method="post" enctype="text/plain" class="contact-form col-md-10 col-lg-8 m-auto"> -->
-                <form action="sendmail.php" method="post" class="contact-form col-md-10 col-lg-8 m-auto">
-                    <div class="form-row">
-                        <div class="form-group col-sm-6">
-                            <input type="text" name="name" size="50" class="form-control" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
-                        </div>
-                        <div class="form-group col-sm-12">
-                            <textarea name="message" id="message" rows="6" class="form-control" placeholder="Write Something"></textarea>
-                        </div>
-                        <div class="form-group col-sm-12 mt-3">
-                            <input type="submit" value="Send Message" class="btn btn-outline-primary rounded">
-                        </div>
-                    </div>
-                </form>
-            <!-- end of contact form -->
-        </div><!-- end of container -->
-    </section><!-- end of contact section -->
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
 
-    <!-- footer -->
-    <div class="container">
-        <footer class="footer">
-            <p class="mb-0">Copyright
-                <script>document.write(new Date().getFullYear())</script> &copy; Shivam Parab. All rights reserved.
-            </p>
-            <div class="social-links text-right m-auto ml-sm-auto">
-                <a href="https://www.linkedin.com/in/shivam-parab/" class="link" target="_blank"><i class="ti-linkedin"></i></a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=shivamparab1500@gmail.com" target="_blank" class="link"><i class="ti-google"></i></a>
-                <a href="https://github.com/letus21500" class="link" target="_blank"><i class="ti-github"></i></a>
-                <a href="https://www.instagram.com/_shivam_21_/" class="link" target="_blank"><i class="ti-instagram"></i></a>
-            </div>
-        </footer>
-    </div> <!-- end of page footer -->
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2022 — Present</div>
+        <div class="exp-company">WonderBiz Technologies</div>
+        <div class="exp-location">Mumbai, India</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Software Engineer</div>
+        <ul class="exp-bullets">
+          <li>Architected a modern <strong>React + TypeScript</strong> frontend overhaul, delivering a <strong>30% performance improvement</strong> and significantly enhanced user experience.</li>
+          <li>Optimized <strong>.NET Core</strong> backend and <strong>SQL Server</strong> query strategies, cutting page load times by <strong>40%</strong> and resolving critical production bottlenecks.</li>
+          <li>Designed a <strong>cloud-agnostic, containerized on-premise</strong> solution using Docker, React, .NET Core, and TimescaleDB for enterprise clients with strict deployment requirements.</li>
+          <li>Implemented <strong>CI/CD pipelines on Azure DevOps</strong>, reducing release cycle time by <strong>50%</strong> and improving overall code reliability by 25%.</li>
+          <li>Built <strong>RESTful APIs</strong> with .NET Core Web API and Entity Framework serving <strong>thousands of daily active users</strong>.</li>
+          <li>Led mobile-responsive transformation initiative, expanding platform accessibility across all devices and improving <strong>mobile engagement by 60%</strong>.</li>
+        </ul>
+        <div class="exp-stack">
+          <span class="exp-stack-tag">.NET Core</span>
+          <span class="exp-stack-tag">C#</span>
+          <span class="exp-stack-tag">React</span>
+          <span class="exp-stack-tag">TypeScript</span>
+          <span class="exp-stack-tag">Azure</span>
+          <span class="exp-stack-tag">Docker</span>
+          <span class="exp-stack-tag">SQL Server</span>
+          <span class="exp-stack-tag">TimescaleDB</span>
+          <span class="exp-stack-tag">Entity Framework</span>
+          <span class="exp-stack-tag">Azure DevOps</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
 
-    <!-- bootstrap 3 affix -->
-    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+      <div class="project-card reveal">
+        <div class="project-number">01 / 03</div>
+        <div class="project-title">Motor Predict Solution</div>
+        <p class="project-desc">End-to-end containerized predictive analytics platform for enterprise motor management. Built for cloud-agnostic deployments with real-time time-series data processing.</p>
+        <div class="project-metrics">
+          <span class="metric">Cloud-agnostic Docker deployment</span>
+          <span class="metric">Real-time time-series analytics</span>
+          <span class="metric">Optimized PostgreSQL query layer</span>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+          <span class="project-tag">.NET Core</span>
+          <span class="project-tag">TimescaleDB</span>
+          <span class="project-tag">Docker Compose</span>
+          <span class="project-tag">PostgreSQL</span>
+        </div>
+      </div>
 
-    <!-- Meyawo js -->
-    <script src="assets/js/meyawo.js"></script>
-    <script src="assets/js/typing.js"></script>
+      <div class="project-card reveal">
+        <div class="project-number">02 / 03</div>
+        <div class="project-title">Enterprise Web App Modernization</div>
+        <p class="project-desc">Architectural migration of a legacy desktop-first application to a modern cloud-based full-stack platform. Led end-to-end across frontend, backend, and database layers.</p>
+        <div class="project-metrics">
+          <span class="metric">60% improvement in mobile engagement</span>
+          <span class="metric">40% reduction in query execution time</span>
+          <span class="metric">Legacy → cloud migration</span>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">.NET Core</span>
+          <span class="project-tag">React</span>
+          <span class="project-tag">Azure</span>
+          <span class="project-tag">SQL Server</span>
+          <span class="project-tag">Entity Framework</span>
+        </div>
+      </div>
 
+      <div class="project-card reveal">
+        <div class="project-number">03 / 03</div>
+        <div class="project-title">Palm Vein Biometric System</div>
+        <p class="project-desc">Biometric authentication system using deep learning on a Raspberry Pi. Research published in IRJET, demonstrating practical computer vision applied to hardware.</p>
+        <div class="project-metrics">
+          <span class="metric">Published research — IRJET</span>
+          <span class="metric">Convolutional Auto-encoder model</span>
+          <span class="metric">Embedded hardware deployment</span>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Computer Vision</span>
+          <span class="project-tag">Deep Learning</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Raspberry Pi</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="contact-headline reveal">Let's build<br>something <span>great.</span></h2>
+    <p class="contact-sub reveal">Open to Full Stack .NET/React roles in Mumbai and remote India. Let's talk.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:shivamparab21500@gmail.com" class="contact-link primary">shivamparab21500@gmail.com</a>
+      <a href="https://linkedin.com/in/shivam-parab" target="_blank" class="contact-link">LinkedIn →</a>
+      <a href="https://www.shivamparab.com/assets/Shivam_Parab_Software_Engineer_3_YOE.pdf" target="_blank" class="contact-link">Download CV</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2025 Shivam Parab. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/shivam-parab" target="_blank">LinkedIn</a>
+      <a href="https://github.com/letus21500" target="_blank">GitHub</a>
+      <a href="mailto:shivamparab21500@gmail.com">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
-
 </html>
